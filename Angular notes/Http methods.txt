@@ -1,0 +1,21 @@
+Http methods:
+GET: Used to retrieve data from a specified resource.
+Typical Use: Fetching data from a server, such as retrieving a list of items or details of a specific item.
+
+POST: Used to submit data to be processed to a specified resource.
+Typical Use: Creating a new resource on the server, such as adding a new item to a list.
+
+PUT: Used to update data on a server.
+Typical Use: Modifying an existing resource on the server, such as updating the properties of an item.
+
+DELETE: Used to remove data from a server.
+Typical Use: Deleting a resource from the server, such as removing an item from a list.
+
+PATCH: Used to apply partial modifications to a resource.
+Typical Use: Updating only specific properties of an existing resource without replacing the entire resource.
+
+HEAD: Same as GET method but used to retrieve only the HTTP headers, not the response body.
+Typical Use: Checking if a resource exists or retrieving metadata about a resource without downloading the entire content.
+
+OPTIONS: Used to describe the communication options for the target resource.
+Typical Use: Getting information about the communication options available on the server.

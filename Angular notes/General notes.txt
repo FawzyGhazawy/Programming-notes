@@ -1,0 +1,63 @@
+when a variable name is declared with the ! postfix, which indicates to TypeScript 
+that the property will be initialized later.
+
+
+
+In TypeScript or Angular, the | symbol is used to denote a union type. 
+Union types allow a variable or parameter to accept multiple different
+ types of values. When a value is of a union type, it can be of any of the specified types.
+
+
+The async pipe returns the latest value from a stream of data and continues
+ to do so for the life of a given component. When Angular destroys that component, 
+the async pipe automatically stops.
+
+
+The ? symbol in TypeScript denotes an optional property.
+ When a property is marked as optional, it means that it may or may not be present in an object of that type.
+
+
+In the context of Angular, "standalone" typically
+ refers to a component, directive, or service that is not declared within an NgModule.
+
+
+A provider is something that can create or deliver a service.
+@Injectable({
+  providedIn: 'root',
+})
+When you provide the service at the root level, Angular creates a single,
+ shared instance of the service and injects into any class that asks for it.
+ Registering the provider in the @Injectable metadata also allows Angular 
+to optimize an application by removing the service if it isn't used.
+
+
+By using .subscribe() to handle asynchronous operations, you ensure that your 
+application waits for the data to be fetched before attempting to use it. 
+This is crucial in scenarios where data fetching takes time, such as fetching 
+data from a server or from a local storage.
+
+
+In TypeScript, the backtick () character is used to denote template literals, 
+which are string literals allowing embedded expressions. Template literals are 
+enclosed by backticks (``), and embedded expressions are denoted by ${}`
+
+
+InMemoryDbService: Imported from 'angular-in-memory-web-api', it is an 
+interface provided by the Angular In-Memory Web API package. This interface 
+defines methods that need to be implemented by services that will act as in-memory databases.
+class InMemoryDataService implements InMemoryDbService{
+createDb()
+}: This method is required by the InMemoryDbService interface. 
+It is responsible for creating the in-memory database
+ the genId method is automatically called when Angular's in-memory 
+web API service needs to generate an ID for a new hero being added 
+to the database. This happens because the InMemoryDbService interface 
+provides a contract that requires implementing the genId method. 
+When you define your own implementation of InMemoryDbService, 
+such as InMemoryDataService, Angular's in-memory web API service 
+automatically invokes the genId method when needed.
+
+
+As a rule, an Observable does nothing until something subscribes.
+
+

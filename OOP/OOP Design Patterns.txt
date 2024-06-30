@@ -1,0 +1,76 @@
+INTRODUCTION: 
+Design Patterns in OOP are like blueprints for solving common problems, by using them we can write a more scalable, maintainable, efficient code.
+
+
+1-SINGLETON PATTERN:
+When I can use only one instance from a class. And it will be accessible from anywhere in my program (Global), whenever I create a instance it will be the same instance i created earlier for example.
+
+
+2-FACTOR METHOD PATTERN:
+A creational design pattern, it defines an interface for creating an object, but let subclasses alter the type of objects that will be created.
+ For example used when I need to create a vehicles manufactor, Factory class for creating vehicles, Concrete factory for creating which type of vehicles(car, motor, airplane), and products which are the vehicle themselves.
+TLDR: It provides an abstract method for creating an object, and the concrete subclasses of the factory class implement this method to produces object of a specific type. 
+(Used when we need to decouple the object creation from the object usage).
+
+
+3-ABSTRACT FACTORY METHOD PATTERN:
+A creational design pattern, It's a higher level pattern compared to the Factory Method Pattern, where you have not just one factory  but a family of factories that work together to create related objects.
+(Used when you need to ensure that the created objects are compatible and belong to a consistent family).
+
+
+4-BUILDER PATTERN:
+A creational design pattern, Used to create a complex object (have a lot of parameter in its constructor) step by step. When some of these parameter are optional to build the objects. I can choose the ones I want.
+(Used to create complex object with multiple configuarion points, especially when some of these options are optional or have default values).
+
+
+5-ADAPTER PATTERN:
+A structural design pattern, It allows objects with incompatible interfaces to work togethers, it act as a bridge between them. (It involve a single class called the adapter that is responsible for that ^).
+
+
+6-PROXY PATTERN:
+A structural design pattern, Its used in various scenarios where you want to control access to an object or add additional functionality without changing the object code. 
+(Act as a representive for the object, can add extra functionalities like: Lazy Loading, Access Control, Caching. Without affecting the object code).
+
+
+7-DECORATOR PATTERN:
+A structural design pattern, It allows you to dynamically add new behavior or responsabilities to objects without altering their code. This pattern is acheived by creating a set of decorators classes that are used to wrap the original object. For example The main class/object Coffee, Concrete class is what type of coffee, the Decorator class is Topping, The concrete decorator class is whats the type of Topping (caramel, creme...).
+
+
+8-COMPOSITE PATTERN:
+A structural design pattern, It allows you to compose objects into tree structures, to represent part-whole hirearchies. It allows you to work with individual objects and their collections in a consistent way, abstrating away the difference between them.
+Example like Directories and files. (directory l parent wl files l child).
+
+
+9-OBSERVER PATTERN:
+A behavioral design pattern, Its used in various scenarios where a one-to-many relationship exists between objects, So when I change one object it notifies all these objects about the changes without knowing who they are, how many there are.
+
+
+10-STRATEGY PATTERN:
+A behavioral design pattern, It defines a family of algorithms, encapsulates each one and make them interchangeable. The pattern allows the client to choose an algorithm from a family of algorithms at runtime. It separate the algorithm from the client, making the algorithm implementation details hidden.
+(Used in situations where multiple algorithms or strategies are available for a specific task and you want to select and use one of them at runtime).
+
+
+11-COMMAND PATTERN:
+A behavioral design pattern, It encapsulate a request as an object, with its own class, parameters and methods. This pattern decouple te sender and reciever of a request, allowing for the sender to issue requests without needing to know the specific operations of the reciever class. (Like a tv and a remote control, the remote doesnt know the internal working of a tv, even tho it send orders to it).
+
+
+12-STATE PATTERN:
+A behavioral design pattern, Its used in scenarios where object can exist in multiple states, and the behavior of an object must change dynamically based on the state.(each state will have be its own object).
+
+
+13-TEMPLATE METHOD PATTERN:
+A behavioral design pattern, it defines the skeleton of an algorithm in a method, leaving the rest of the steps to the subclasses. It allows subclasses to redefine some parts of the algorithm without altering the algorithm structure.
+(Used in scenarios where you want to define the outline of an algorithm and allows subclasses to provide specific implementations for certain steps).
+
+
+14-VISITOR PATTERN:
+A behavioral design pattern, that allows you to add further operations to objects without having to modify them.
+It is used when you have a set of objects of different types and you want to perform a common operation on them without modifying their classes.
+Its achieved by defining a separate visitor class or Interface that is responsible for performing this operation on these objects. Each object accept the visitor and delegate the operation to it (each object will have a specific operation in the visitor class).
+
+
+15-MEMENTO PATTERN:
+A behavioral design pattern, it provide a way to captures and externalise an object internal state without violating its encapsulation. It allows an object to save its current state in a "memento object" which later can be used to restore the object if we changed it to this "memento object" state.
+(Used when you need to implement undo/redo functionalities or save/restore an object state).
+
+

@@ -1,0 +1,57 @@
+     /* 
+path: 'products/:productId': This part specifies the URL path for this route.
+ In this case, it defines a route with the path 'products/:productId'.
+  The :productId portion is a route parameter, indicated by the colon (:) prefix.
+   It signifies that this part of the URL can vary and will be treated as
+    a parameter named productId. For example, if the URL is /products/123, 
+    then 123 would be passed as the value for productId.
+
+component: ProductDetailsComponent: 
+This part specifies the component that should be rendered when navigating to the
+ defined URL path. In this case, it specifies that when the URL matches the pattern
+  'products/:productId', Angular should render the ProductDetailsComponent.
+     */
+
+    /*this.route.snapshot.paramMap: Accesses the current route's parameter map.
+routeParams.get('productId'): Retrieves the value of the route parameter named 'productId'.
+Number(...): Converts the retrieved parameter value to a number. 
+This assumes that the product IDs are represented as numbers.
+
+.snapshot is a property that allows you to access the current state of 
+the activated route at the moment the component is initialized.
+
+ paramMap is a property that provides a map of the route parameters for the current route. 
+ It represents the parameters extracted from the route URL as key-value pairs.
+
+ routeParams.get('productId'): Retrieves the value of the 
+ route parameter named 'productId' from the paramMap.
+*/ 
+
+The decision to use square brackets ([]) around routerLink depends
+ on whether you want to provide a static or dynamic value.
+
+Static Value (Without square brackets):
+
+When the value of routerLink is known and doesn't need to be dynamically evaluated 
+at runtime, you can use it without square brackets.
+For example, if you have a fixed route like routerLink="/cart", where the path is constant 
+and doesn't change, you can use it without square brackets.
+<a routerLink="/cart">Go to Cart</a>
+
+Dynamic Value (With square brackets):
+
+When the value of routerLink needs to be dynamically determined at runtime, you should use square brackets.
+For example, if you want to construct the route based on some dynamic data or input, such as 
+a product ID, you should use square brackets to bind to a property or 
+expression that resolves to the desired route value.
+
+<a [routerLink]="['/products', productId]">View Product</a>
+In summary:
+
+Use routerLink="/static-route" when the route is static and known in advance.
+Use [routerLink]="[dynamicValue]" when the route needs to be 
+dynamically constructed based on runtime data or variables.
+
+
+The location is an Angular service for interacting with the browser.
+ This service lets you navigate back to the previous view.

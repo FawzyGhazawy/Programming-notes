@@ -1,0 +1,118 @@
+start.spring.io
+Dependencies: Spring web 
+ctrl + N : find a class;
+
+
+
+maven is part of maven which contains the dependencies
+mvn -N io.takari:maven:wrapper
+
+to make a rest api in the controller; we need to add "@RestController" at the top of the method of the controller class
+
+
+When we want to map a function with a url exp : "/courses" ; we put the "@RequestMapping("/courses)" at the top of the function;
+@RequestMapping("/api/courses") ; /api is referred to as the base path or the base URL
+
+
+Spring boot auto configures a lot of things for us based on the frameworks listed in the starter class; 
+exp : spring boot starter web; error handling, Dispatcher Servlet; JSON conversion....
+
+Bean <--> JSON : " JacksonHttpMessageConvertersConfiguration "
+
+We can add a dependency to the pom.xml ; artifact: spring-boot-devtools ; which will help with automatic
+refrech of the server everytime we make a change; but not a change in pom.xml cz it doesn't detect it
+
+In application.properties we can modify the level of the application; exp: 
+logging.level.org.springframework=debug   which will make the run of the application at a debug stage 
+and not the auto info stage which does not provide enough feedback in the console;
+ 
+Eza 3ena kaza stage lal application: exp : Development dev, QA, Production prod; fina na3mel kaza profile lal app kermel ya3refo shu yesta3mlo
+technologies hl2 bel application.properties; so be3mel copy paste lal application.properties w bsamiya 
+application-dev.properties ; w b7et esh bede l dev ysir 3ndn exp: bade l console ykun aktar mn debug so b7eto trace; 
+in default the app will take the original application.properties so bi alba bektob:
+"spring.profiles.active=dev "; hek bi sir l dev profile hiye li she8ale; msh l default.
+
+there is multiple logging levels wich are supported: 1-trace ; 2-debug ; 3-info ; 4-warning; 5-error ; 6-off;
+Off: will turn off the entire logging;
+error: only errors and exception will be printed
+warning: will print more than the error
+trace: will print everything that there is to print;
+w byemsho bl tertib so eza bna2e logging = 1: trace : ye3ne kel li ba3da kamen 7a yen3erdo 2 3 4 5 ; w nafs l shi lal ba2we
+ye3ne eza ne2et 3: info: 7a ten3arad 3 4 5 
+
+
+applicationContext: hiye mtl functions;
+
+ta zid beans 3al app: b7ot @Component fo2 l class code : hayde 3al class level
+eza ma bede 3al class level : b7ot @Bean fo2 l method; bas lezem kun 7atet @Configuration 3al class level
+
+RestTemplate : is a class provided by the Spring Framework that simplifies the process of making
+ HTTP requests to RESTful web services.
+
+Configuration Properties: it is a complex configuration: which means if i have multiple configuration services in the application.properties
+w hawde ye3ne bi kuno values (eza fi kaza profile ; w ana 7atet active msh l default: bas bl active profile mafi hawde l service properties 
+mentioned ; so l compiler bye5od l values mn l default application.properties msh mn l active)
+hala2 ta 7ata e2dar est3ml l configuration Properties; bshuf shu esem l service li bede yeha 
+exp: "currency-service" ; b7et bl new class: fo2 public class : @Component ; @ConfigurationProperties(prefix = "currency-service");
+l prefix huwe bi kun esem l service; w fine 7et ad ma bede properties bi aleb hal class (variables , w berja3 bmare2lon l values mn 
+aleb application.properties exp: currency-service.url=7ayalashi   ; b7ot dot . ba3d l name)
+
+Controller is a class that accept a request and return a response
+
+
+@Repository annotation in Spring is indeed related to database storage. It is used to indicate that a particular 
+class is a repository, which typically encapsulates database access logic.
+When you annotate a class with @Repository, Spring automatically registers it as a bean in the application context, 
+making it available for dependency injection. Repositories are typically used to perform database operations 
+such as querying, saving, updating, and deleting data.
+
+
+Optional : this is a boolean type that returns true if the value searched for is in the list; and returns false if it is null;
+
+
+@GetMapping(""):  is an annotation used in Spring MVC to map HTTP GET requests to specific handler methods in your controller. 
+It's part of the Spring Web framework and is used to handle incoming HTTP GET requests to a particular URL pattern.
+
+
+The PostConstruct annotation is used on a method that needs to be executed after dependency 
+injection is done to perform any initialization. This method must be invoked before the class is put into service
+
+
+wa2ta badna dynamic url : 
+exp:@GetMapping("/{id}") ; hon bl function ta7ta lezem 7ot  public Content findById(@PathVariable Integer id){ } 
+hon l getMapping 3am ye5od l value taba3 l id mn l function parameter; 
+
+
+**wa2ta bede eb3at data lal http Browser: besta3mel:
+@PostMapping("")
+    public void create(@RequestBody Content content){}
+w lezem esta3mel @RequestBody hek: is an annotation used in Spring MVC to indicate that a method parameter should be bound to the body of the HTTP request.
+w bel http generator request: wa2t bede e3ml post lezem:
+POST http://localhost:8080/api/content
+Content-Type: application/json
+so lezem zid hayde l content type w byerja3 enter (empty line) w ba3den JSON data;
+
+
+Fishi esmo Actuators: bi 5alune a3ref detail informations 3an l app taba3e mtl request count ; storage ; response time ..... 
+ta sha8ela : bl pom.xml bzid started-actuator ; (metel starter-web copy paste bas b8ayer web b7ot actuator)
+localhost:8080/actuator : bi arjine esh fi actuators per default : ta 5ale kelshi actuators ybayno lezem 8ayer application.properties
+bektob : management.endpoints.web.exposure.include=*
+
+
+Metel mafishi esmo @PostMapping("") , kamen fishi esmo PutMapping(""): hayda eza bede e3mel update lashi sha8le bhal http body
+
+
+
+eza fi kaza port badon ye7ko ma3 ba3d exp : port 8080 and port 5050 : bi sir fishi esmo cors byemna3ne ene en2ol json data ; so lezem bl spring boot 
+controller class 3al class level : @CrossOrigin();
+
+
+eza bede e3ml constraints 3al data li user bye2dor yda5ela exp: title not empty:
+lezem zid bel pom.xml : dependency : spring-boot-starter-validation; 
+hala2 bel .java class bi aleb model package b7ot edem l attribute @NotEmpty or @NotBlank; 
+w bel controller class b7ot edem l post api : @Valid exp:
+@ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("")
+    public void create(@Valid @RequestBody Content content){
+        repository.save(content);
+    }
