@@ -1,0 +1,186 @@
+/*Setting up reactive forms
+FormControl is for single form fields.
+FormGroup is for grouping multiple controls that represent closely related parts of a form.
+FormArray is used for dynamic form parts where the number of controls is not fixed.
+Functionality:
+Both FormGroup and FormArray can contain multiple FormControl instances, but 
+FormArray is specifically designed for variable-sized collections.
+ControlValueAccessor is different in that it does not manage form state directly; 
+instead, it helps in creating custom components that can be controlled via the forms API.
+*/
+
+*/Reactive Approach: This process illustrates the reactive programming paradigm used 
+in Angular, where changes propagate through streams of data (observables) and are managed 
+in a controlled and predictable way.
+Decoupling: The model (data) and the view (UI) are decoupled. Changes to the model are 
+automatically reflected in the view through bindings and observables, promoting a 
+clean separation of concerns.
+ControlValueAccessor: This interface plays a crucial role in integrating custom 
+components with Angular's forms framework. It ensures that any custom form components 
+behave consistently with standard form controls.
+*/
+
+/*Communicating with backend services using HTTP
+Applications need to send and receive information with a Backend server through 
+the http protocol to POST/GET/PUT/PATCH/DELETE data or access a service
+*/
+
+/*Add A Routing Module
+To create a module + routing
+Run the following: ng g module <moduleName> –routing
+It will generate a folder with <moduleName> containing
+<moduleName>.routing.module.ts
+<moduleName>.module.ts
+Create a main html file that will hold the routing and add <router-outlet>
+*/
+
+
+/*Wildcard Route
+Catch un-matched routes and display a PageNotFound page (i.e. component)
+Route order matters so make sure the wildcard route is listed last
+*/
+
+/*Dependency Injection
+Create an injectable service use the following command
+ng generate service <serviceName>
+It will generate a service as shown in the next slide Figure 1
+The @Injectable() decorator specifies that Angular can use this class in the DI system. 
+The metadata, providedIn: 'root', means that the HeroService is visible throughout the application.
+An example is shown in the next slide Figure 2
+*/
+
+/*Redirect
+To redirect to a component / page, in the routing add redirectTo:/<nameOfPage>,
+ basically depending on the URL it will redirect to the specified page for example this
+  can be used when checking if a wrong URL has been used to redirect to page not found.
+*/
+
+/*How Children Routes Work
+Children routes are defined within the configuration of another, higher-level route. 
+They enable you to nest routes, making it possible to display multiple levels of components 
+and views within a single application. The parent route will have a path and a component 
+associated with it, and it can contain child routes that also have their own paths and components.
+
+Setting Up Children Routes
+Parent Component Routing Module: First, you define a parent route that might look something like this:
+// app-routing.module.ts
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { ParentComponent } from './parent/parent.component';
+
+const routes: Routes = [
+  {
+    path: 'parent',
+    component: ParentComponent,
+    children: [
+      {
+        path: 'child1',
+        loadChildren: () => import('./child1/child1.module').then(m => m.Child1Module)
+      },
+      {
+        path: 'child2',
+        loadChildren: () => import('./child2/child2.module').then(m => m.Child2Module)
+      }
+    ]
+  }
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+
+
+Child Components: Each child route might have its own module and routing configuration, 
+often used for feature modules or when implementing lazy loading. For instance, Child1Module
+ and Child2Module would have their own routes configured inside their respective modules.
+
+Benefits of Using Children Routes
+Organization: Helps in organizing the routes in a hierarchical manner that reflects the 
+UI structure of the application.
+Modularity: Each feature can be encapsulated within its own module along with its routing 
+configuration, promoting modularity.
+Maintainability: Easier to maintain and manage the application as each module can be worked 
+on independently.
+Lazy Loading: Facilitates lazy loading of routes, which can significantly improve initial 
+load times by loading child modules only when needed.
+*/
+
+/*
+In Angular, a route guard is a feature used to control navigation either by allowing 
+or denying access to a route based on specific conditions. Route guards can be particularly 
+useful for implementing permissions and access controls such as authentication and authorization 
+checks before entering a route or leaving a route. They are implemented as services that can 
+be attached to routes in the routing configuration.
+
+Types of Route Guards
+Angular provides several types of guards, each serving specific routing needs:
+
+CanActivate: Determines whether a route can be activated.
+CanActivateChild: Determines whether child routes of a route can be activated.
+CanDeactivate: Determines whether you can navigate away from the current route. 
+This is often used for unsaved changes warnings.
+CanLoad: Determines whether a module can be loaded lazily. This can prevent the loading 
+of entire modules until certain conditions are met, such as user authentication.
+Resolve: Performs route data retrieval before route activation. Useful for pre-fetching 
+data needed to render the view.
+Implementing a Route Guard
+To create a route guard, you define a service that implements one or more of the guard 
+interfaces provided by Angular. Here’s an example of a simple CanActivate guard:
+
+Create the Guard Service:
+ng generate guard auth
+
+Implement the Guard:
+// auth.guard.ts
+import { Injectable } from '@angular/core';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthGuard implements CanActivate {
+  constructor(private router: Router) {}
+
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+      const isAuthenticated = false; // Replace with actual authentication check
+      if (!isAuthenticated) {
+        this.router.navigate(['/login']); // Redirect to login if not authenticated
+        return false;
+      }
+      return true;
+    }
+}
+
+Attach the Guard to Routes:
+// app-routing.module.ts
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from './auth.guard';
+import { ProtectedComponent } from './protected/protected.component';
+
+const routes: Routes = [
+  { path: 'protected', component: ProtectedComponent, canActivate: [AuthGuard] }
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+
+Using Guards for Child Routes
+You can also apply guards to child routes using CanActivateChild in a similar manner. 
+This allows you to protect a parent route and all of its children with a single guard.
+
+Benefits of Using Route Guards
+Security: Enhance security by preventing unauthorized access to certain parts of your application.
+Data Integrity: Use guards like CanDeactivate to prevent navigating away from routes if 
+there are unsaved changes.
+User Experience: Improve user experience by pre-loading data with Resolve guards or by 
+ensuring only accessible routes are navigable based on user state.
+*/
